@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package file_service;
+
+option go_package = "./gRPC_service";
+
+service FileService {
+  rpc GetFiles(GetFileRequest) returns (GetFileResponse);
+  rpc Download(DownloadRequest) returns (stream DownloadResponse);
+  rpc ListFiles(ListFileRequest) returns (ListFileResponse);
+}
+
+message GetFileRequest {
+  string fileName = 1;
+  bytes data = 2;
+}
+
+message GetFileResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message DownloadRequest {
+ string fileName = 1;
+}
+
+message DownloadResponse {
+ bytes data = 1;
+}
+
+message ListFileRequest {
+
+}
+
+message ListFileResponse {
+ repeated fileInfo files = 1;
+}
+
+message fileInfo {
+  string fileName = 1;
+  string created_at = 2;
+  string updated_at = 3;
+}
